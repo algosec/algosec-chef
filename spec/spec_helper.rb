@@ -2,8 +2,11 @@
 
 require 'chefspec'
 require 'chefspec/berkshelf'
+require 'coveralls'
 require 'pry'
 require 'algosec-sdk'
+
+Coveralls.wear!
 
 at_exit { ChefSpec::Coverage.report! }
 

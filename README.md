@@ -1,8 +1,12 @@
 # AlgoSec Chef Cookbook
 
+[![Cookbook Version](http://img.shields.io/cookbook/v/algosec.svg?style=flat-square)](https://supermarket.chef.io/cookbooks/algosec)
+[![Coverage Status](https://coveralls.io/repos/github/algosec/algosec-chef/badge.svg)](https://coveralls.io/github/algosec/algosec-chef)
+[![Build Status](https://travis-ci.org/algosec/algosec-chef.svg)](https://travis-ci.org/algosec/algosec-chef)
+
 Chef Cookbook to DevOps-ify network security management, leveraging AlgoSec's business-driven security policy management solution.
 
-Maintaining compatibility between applications and their network permission requirements can be a challenging task for many organizations. This Cookbook together with AlgoSec's solution and Chef automation infrastructure will make it as easy as committing a simple `json` file for each application. DevOps made simple...Engineers love it!
+Maintaining compatibility between applications and their network connectivity requirements can be a challenging task for many organizations. This Cookbook together with AlgoSec's solution and Chef automation infrastructure will make it as easy as committing a simple `json` file for each application. DevOps made simple...Engineers love it!
 
 
 ## SCOPE
@@ -80,7 +84,7 @@ The resource will delete/modify/create flows as needed to make the list of appli
 
 #### Common Use Cases
 
-* A team of engineers in your company are developing an application that is frequently deployed within the network. With some of the changes, new requirements for network permissions are presented. 
+* A team of engineers in your company are developing an application that is frequently deployed within the network. With some of the changes, new requirements for network connectivity are presented. 
  Leveraging AlgoSec BusinessFlow and Chef using the `algosec_application_flows`, all they need to do is ship a `flows.json` file along with their code. This file will be loaded onto AlgoSec BusinessFlow by Chef and AlgoSec solution would deploy it to the network.
 
 #### Examples

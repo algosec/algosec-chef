@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'algosec-sdk', github: 'algosec/algosec-ruby', branch: 'master'
+gem 'algosec-sdk'
 gem 'berkshelf'
 gem 'chef-sugar'
 gem 'kitchen-inspec'
@@ -23,5 +23,6 @@ group :development do
 end
 
 group :test do
+  gem 'coveralls', require: false
   gem 'pry-byebug'
 end
