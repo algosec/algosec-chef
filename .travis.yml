@@ -21,7 +21,6 @@ before_script:
   - eval "$(/opt/chefdk/bin/chef shell-init bash)"
   - /opt/chefdk/embedded/bin/chef gem install kitchen-dokken
   - /opt/chefdk/embedded/bin/chef gem install algosec-sdk
-  - /opt/chefdk/embedded/bin/chef gem install coveralls
   - /opt/chefdk/embedded/bin/chef --version
   - /opt/chefdk/embedded/bin/cookstyle --version
   - /opt/chefdk/embedded/bin/foodcritic --version
@@ -37,5 +36,6 @@ matrix:
     env:  COOKSTYLE=1
   - script: /opt/chefdk/embedded/bin/foodcritic . --exclude spec -f any -P
     env:  FOODCRITIC=1
-  - script: /opt/chefdk/embedded/bin/rspec
+  # Running the bundle install so the proper dependencies will be installed
+  - script: bundle install; /opt/chefdk/embedded/bin/rspec
     env:  CHEFSPEC=1
