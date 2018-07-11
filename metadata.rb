@@ -6,7 +6,7 @@ maintainer_email 'support@algosec.com'
 license 'MIT'
 description 'Installs/Configures algosec'
 long_description 'Installs/Configures algosec'
-version '0.1.0'
+version '1.0.0'
 
 chef_version '>= 12'
 
