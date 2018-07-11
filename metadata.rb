@@ -1,0 +1,30 @@
+# frozen_string_literal: true
+
+name 'algosec'
+maintainer 'AlgoSec Systems'
+maintainer_email 'support@algosec.com'
+license 'MIT'
+description 'Installs/Configures algosec'
+long_description 'Installs/Configures algosec'
+version '0.1.0'
+
+chef_version '>= 12'
+
+issues_url 'https://github.com/algosec/algosec-chef/issues'
+source_url 'https://github.com/algosec/algosec-chef'
+
+supports         'windows'
+supports         'mac_os_x'
+supports         'debian'
+supports         'ubuntu'
+supports         'centos'
+supports         'redhat'
+supports         'fedora'
+supports         'freebsd'
+supports         'amazon'
+supports         'scientific'
+supports         'arch'
+supports         'suse'
+supports         'xenserver'
+supports         'smartos'
+supports         'oracle'

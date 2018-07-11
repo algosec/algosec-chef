@@ -1,0 +1,25 @@
+.vagrant
+Berksfile.lock
+*~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
+
+.kitchen/
+.kitchen.local.yml
+
+.idea/
+
+.byebug_history
+
+# Chef Zero runtime files
+examples/algosec-chef-example/.chef/chef_guid
+examples/algosec-chef-example/.chef/local-mode-cache
+examples/algosec-chef-example/nodes
