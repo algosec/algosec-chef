@@ -27,7 +27,7 @@ This cookbook is concerned with all [AlgoSec](https://www.algosec.com) services:
 This cookbook is not intended to include any recipes.
 Use it by specifying a dependency on this cookbook in your own cookbook.
 
-Please see the [Examples README](examples/README.md) for a thorough explanation of how to use this package.
+Please see the [Examples README](https://github.com/algosec/algosec-chef/blob/master/examples/README.md) for a thorough explanation of how to use this package.
 The README file will walk you through all the steps from installing Chef and its dependencies, to running a live example. 
 
 ```ruby
@@ -64,7 +64,7 @@ end
 
 ## Testing
 
-For more details look at the [TESTING.md](./TESTING.md).
+For more details look at the [TESTING.md](https://github.com/algosec/algosec-chef/blob/master/TESTING.md).
 
 All static code tests are simply run by:
 ```
@@ -89,11 +89,12 @@ The resource will delete/modify/create flows as needed to make the list of appli
 
 #### Examples
 To see an example of how to use this custom resource you can choose from a few options based on your level of familiarity with AlgoSec Chef Cookbook and Chef in general:
+
 * See the [Usage](#Usage) section in this README file for a short example.
-* See the [Examples README.md](examples/README.md) for a full step-by-step guide that will show you how to use this resource.
+* See the [Examples README.md](https://github.com/algosec/algosec-chef/blob/master/examples/README.md) for a full step-by-step guide that will show you how to use this resource.
 
 ## License & Authors
 
-If you would like to see the detailed LICENCE click [here](./LICENSE).
+If you would like to see the detailed LICENSE click [here](https://github.com/algosec/algosec-chef/blob/master/LICENSE).
 
 - Author:: AlgoSec <dev@algosec.com>

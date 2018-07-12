@@ -1,7 +1,8 @@
 TESTING doc
 ========================
 
-TL;DR
+**TL;DR**
+
 To run all rake tests for this Cookbook, both Rspec and style tests, just run:
 ```
 bundle exec rake
