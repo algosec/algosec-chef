@@ -41,3 +41,6 @@ matrix:
   # Running the bundle install so the proper dependencies will be installed
   - script: bundle install; /opt/chefdk/embedded/bin/rspec
     env:  CHEFSPEC=1
+
+notifications:
+  - false
