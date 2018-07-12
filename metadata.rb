@@ -6,7 +6,7 @@ maintainer_email 'support@algosec.com'
 license 'MIT'
 description 'Leverage AlgoSec\'s business-driven security policy management solution.'
 long_description 'Leverage AlgoSec\'s business-driven security policy management solution.'
-version '1.0.0'
+version '1.0.1'
 
 chef_version '>= 12'
 
