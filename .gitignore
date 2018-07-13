@@ -23,3 +23,5 @@ bin/*
 examples/algosec-chef-example/.chef/chef_guid
 examples/algosec-chef-example/.chef/local-mode-cache
 examples/algosec-chef-example/nodes
+
+coverage

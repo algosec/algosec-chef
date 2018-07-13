@@ -9,8 +9,10 @@
 # Replace these credentials with those of your AlgoSec(s)
 algosec = { host: 'local.algosec.com', user: 'admin', password: 'algosec', ssl_enabled: false }
 
-algosec_application_flows 'define new application flows using a json file' do
-  algosec_options algosec
-  application_name node['application_name']
-  application_flows node['application_flows']
+node['applications'].each do |application|
+  algosec_application_flows "define new application #{application['app_name']} flows using a json file" do
+    algosec_options algosec
+    application_name application['app_name']
+    application_flows application['app_flows']
+  end
 end

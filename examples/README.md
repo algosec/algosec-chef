@@ -66,59 +66,56 @@ About the only thing you'll need to get started developing is some basic termina
 
   ```ruby
     # Replace these credentials with those of your AlgoSec(s)
-        algosec = { host: 'local.algosec.com', user: 'admin', password: 'algosec', ssl_enabled: false }
-    
-        algosec_application_flows 'define new application flows using a json file' do
-          algosec_options algosec
-          application_name node['application_name']
-          application_flows node['application_flows']
+    algosec = { host: 'local.algosec.com', user: 'admin', password: 'algosec', ssl_enabled: false }
+
+    node['applications'].each do |application|
+      algosec_application_flows "define new application #{application['app_name']} flows using a json file" do
+        algosec_options algosec
+        application_name application['app_name']
+        application_flows application['app_flows']
       end
+    end
   ```
   * There's a few things I want to note here. The first thing is that the `algosec` object is just a Ruby hash. This hash contain the necessary data for connecting to the AlgoSec we want to manage. We put this information in clear text here, but you'll definitely want to make some changes in production code, so you're not checking passwords into a repo in clear text. You can build this hash by reading in a file, fetching an encrypted databag, etc. Also, instead of setting ssl_enabled to false, you should import the server's certs onto your machine.
-  * The second thing I want to note is the `algosec_application_flows` resource. Here we're just defining a set of application flows for a specific BusinessFlow application. You can run the recipe over and over, and it will continue to check if any changes are needed for the application flows on the server to match their definition in the cookbook. 
+  * The second thing I want to note is the `algosec_application_flows` resource. Here we're just defining a set of application flows for a specific set of BusinessFlow applications. You can run the recipe over and over, and it will continue to check if any changes are needed for the application flows on the server to match their definition in the cookbook. 
 
 7. In a new file `my_algosec/flows.json` paste the following configuration for the application name and application flows to define for that application.
     Modify this configuration as you wish
     
     ```json
     {
-      "application_name": "testApp",
-      "application_flows": {
-        "flow1": {
-          "sources": [
-            "HR Payroll server",
-            "192.168.0.0/16"
-          ],
-          "destinations": [
-            "16.47.71.62"
-          ],
-          "services": [
-            "HTTPS"
-          ]
+      "applications": [
+        {
+          "app_name": "TEST",
+          "app_flows": {
+            "flow1": {
+              "sources": ["HR Payroll server", "192.168.0.0/16"],
+              "destinations": ["16.47.71.62"],
+              "services": ["HTTPS"]
+            },
+            "flow2": {
+              "sources": ["10.0.0.1"],
+              "destinations": ["10.0.0.2"],
+              "services": ["udp/501"]
+            },
+            "flow3": {
+              "sources": ["1.2.3.4"],
+              "destinations": ["3.4.5.6"],
+              "services": ["SSH"]
+            }
+          }
         },
-        "flow2": {
-          "sources": [
-            "10.0.0.1"
-          ],
-          "destinations": [
-            "10.0.0.2"
-          ],
-          "services": [
-            "udp/501"
-          ]
-        },
-        "flow3": {
-          "sources": [
-            "1.2.3.4"
-          ],
-          "destinations": [
-            "3.4.5.6"
-          ],
-          "services": [
-            "SSH"
-          ]
+        {
+          "app_name": "ANOTHER-APP",
+          "app_flows": {
+            "new-flow": {
+              "sources": ["1.2.3.4"],
+              "destinations": ["3.4.5.6"],
+              "services": ["SSH"]
+            }
+          }
         }
-      }
+      ]
     }
     ```
 8. Now let's run our recipe and see what happens:
@@ -164,7 +161,7 @@ About the only thing you'll need to get started developing is some basic termina
     $ rm algosec-*.tar.gz
     ```
 
-9. Now re-run ```$ chef-client -z -o my_algosec::default -j `pwd`/my_algosec/flows.json```. This time it should succeed, and if you log into your AlgoSecs BusinessFlow you'll see this set of flows defined for the selected application.
+9. Now re-run ```$ chef-client -z -o my_algosec::default -j `pwd`/my_algosec/flows.json```. This time it should succeed, and if you log into your AlgoSecs BusinessFlow you'll see this set of flows defined for the defined applications.
 
     _NOTE_: You can see how upon first run, AlgoSec ruby SDK will be automatically downloaded and installed.
 

@@ -63,45 +63,53 @@ depends 'algosec'
 
 algosec = { host: 'local.algosec.com', user: 'admin', password: 'algosec123' }
 
-# Example: Define the application flows for application 'testApp'.
+# Example: Define the application flows for application defined in the json file
 # Note that the application name and application flows are loaded from the external json file 
-algosec_application_flows 'define application flows using a json file' do
-  algosec_options algosec
-  application_name node['application_name']
-  application_flows node['application_flows']
+node['applications'].each do |application|
+  algosec_application_flows "define new application #{application['app_name']} flows using a json file" do
+    algosec_options algosec
+    application_name application['app_name']
+    application_flows application['app_flows']
+  end
 end
 ```
 
 ##### flow.json flows definition example
 ```json
-{
-  "application_name": "testApp",
-  "application_flows": {
-    "flow1": {
-      "sources": [
-        "HR Payroll server",
-        "192.168.0.0/16"
-      ],
-      "destinations": [
-        "16.47.71.62"
-      ],
-      "services": [
-        "HTTPS"
-      ]
-    },
-    "flow2": {
-      "sources": [
-        "10.0.0.1"
-      ],
-      "destinations": [
-        "10.0.0.2"
-      ],
-      "services": [
-        "udp/501"
+   {
+      "applications": [
+        {
+          "app_name": "TEST",
+          "app_flows": {
+            "flow1": {
+              "sources": ["HR Payroll server", "192.168.0.0/16"],
+              "destinations": ["16.47.71.62"],
+              "services": ["HTTPS"]
+            },
+            "flow2": {
+              "sources": ["10.0.0.1"],
+              "destinations": ["10.0.0.2"],
+              "services": ["udp/501"]
+            },
+            "flow3": {
+              "sources": ["1.2.3.4"],
+              "destinations": ["3.4.5.6"],
+              "services": ["SSH"]
+            }
+          }
+        },
+        {
+          "app_name": "ANOTHER-APP",
+          "app_flows": {
+            "new-flow": {
+              "sources": ["1.2.3.4"],
+              "destinations": ["3.4.5.6"],
+              "services": ["SSH"]
+            }
+          }
+        }
       ]
     }
-  }
-}
 ```
 
 ## Testing
