@@ -25,42 +25,14 @@ This cookbook is concerned with all [AlgoSec](https://www.algosec.com) services:
 ## Usage
 
 This cookbook is not intended to include any recipes.
-Use it by specifying a dependency on this cookbook in your own cookbook.
+Use it by specifying a dependency on this cookbook in your own cookbook and using the custom resources that are defined in this cookbook.
 
-Please see the [Examples README](https://github.com/algosec/algosec-chef/blob/master/examples/README.md) for a thorough explanation of how to use this package.
-The README file will walk you through all the steps from installing Chef and its dependencies, to running a live example. 
+#### Examples
+To see an example of how to use this custom resource you can choose from a few options based on your level of familiarity with AlgoSec Chef Cookbook and Chef in general:
 
-```ruby
-# my_cookbook/metadata.rb
-depends 'algosec'
-
-algosec = { host: 'local.algosec.com', user: 'admin', password: 'algosec123' }
-
-# Example: Define the application flows for application 'testApp'
-# This will delete/modify/create flows as needed to match this flows definition on the server
-algosec_application_flows 'define new application flows' do
-  algosec_options algosec
-  application_name 'testApp'
-  application_flows(
-    'flow1' => {
-      'sources' => ['HR Payroll server', '192.168.0.0/16'],
-      'destinations' => ['16.47.71.62'],
-      'services' => ['HTTPS'],
-    },
-    'flow2' => {
-      'sources' => ['10.0.0.1'],
-      'destinations' => ['10.0.0.2'],
-      'services' => ['udp/501'],
-    },
-    'flow3' => {
-      'sources' => ['1.2.3.4'],
-      'destinations' => ['3.4.5.6'],
-      'services' => ['SSH'],
-    }
-  )
-  action :define
-end
-```
+* See the [Usage](#Custom Resources) section in this README file for a quick example.
+* See the [Examples README.md](https://github.com/algosec/algosec-chef/blob/master/examples/README.md) for a full step-by-step guide that will show you how to use this cookbook and its resources.
+    The README file will walk you through all the steps from installing Chef and its dependencies, to running a live example. 
 
 ## Testing
 
@@ -71,8 +43,7 @@ All static code tests are simply run by:
 bundle exec rake
 ```
 
-To actually test the code, please refer to the `examples/README.md` file and apply against a
- TEST app in your AlgoSec Demo VM machine. 
+To actually test the cookbook in action, please refer to the `examples/README.md` file and apply against a test app in your AlgoSec Demo VM machine. 
 
 ## Custom Resources
 Currently, the AlgoSec Chef Cookbook include only one custom resource which is highly useful: The `algosec_application_flows`.
@@ -82,16 +53,66 @@ Currently, the AlgoSec Chef Cookbook include only one custom resource which is h
 This custom resource is used to define a set of application flows for a given application on AlgoSec BusinessFlow. 
 The resource will delete/modify/create flows as needed to make the list of application flows on the server match the exact request made by the Chef cookbook (defined by you).
 
+The application flows and application flows for this resource can be defined in an external `flows.json` file which be loaded with the Chef Zero run.
+
+#### How to run
+
+```bash
+$ chef-client -z -o <cookbook_name>::<recipe_name> -j /full/path/to/flows.json
+```
+
+#### Cookbook Example
+```ruby
+# my_cookbook/metadata.rb
+depends 'algosec'
+
+algosec = { host: 'local.algosec.com', user: 'admin', password: 'algosec123' }
+
+# Example: Define the application flows for application 'testApp'. The app name and 
+# 
+algosec_application_flows 'define application flows using a json file' do
+  algosec_options algosec
+  application_name node['application_name']
+  application_flows node['application_flows']
+end
+```
+
+#### flow.json example
+```json
+{
+  "application_name": "testApp",
+  "application_flows": {
+    "flow1": {
+      "sources": [
+        "HR Payroll server",
+        "192.168.0.0/16"
+      ],
+      "destinations": [
+        "16.47.71.62"
+      ],
+      "services": [
+        "HTTPS"
+      ]
+    },
+    "flow2": {
+      "sources": [
+        "10.0.0.1"
+      ],
+      "destinations": [
+        "10.0.0.2"
+      ],
+      "services": [
+        "udp/501"
+      ]
+    }
+  }
+}
+```
+
 #### Common Use Cases
 
 * A team of engineers in your company are developing an application that is frequently deployed within the network. With some of the changes, new requirements for network connectivity are presented. 
  Leveraging AlgoSec BusinessFlow and Chef using the `algosec_application_flows`, all they need to do is ship a `flows.json` file along with their code. This file will be loaded onto AlgoSec BusinessFlow by Chef and AlgoSec solution would deploy it to the network.
-
-#### Examples
-To see an example of how to use this custom resource you can choose from a few options based on your level of familiarity with AlgoSec Chef Cookbook and Chef in general:
-
-* See the [Usage](#Usage) section in this README file for a short example.
-* See the [Examples README.md](https://github.com/algosec/algosec-chef/blob/master/examples/README.md) for a full step-by-step guide that will show you how to use this resource.
 
 ## License & Authors
 
