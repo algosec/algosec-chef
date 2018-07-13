@@ -164,7 +164,7 @@ About the only thing you'll need to get started developing is some basic termina
     $ rm algosec-*.tar.gz
     ```
 
-9. Now re-run `$ chef-client -z -o my_algosec::default -j `pwd`/my_algosec/flows.json`. This time it should succeed, and if you log into your AlgoSecs, you'll see the user 'bob'.
+9. Now re-run ```$ chef-client -z -o my_algosec::default -j `pwd`/my_algosec/flows.json```. This time it should succeed, and if you log into your AlgoSecs BusinessFlow you'll see this set of flows defined for the selected application.
 
     _NOTE_: You can see how upon first run, AlgoSec ruby SDK will be automatically downloaded and installed.
 
