@@ -4,4 +4,4 @@
 # Attributes:: default
 #
 
-default['algosec']['ruby_sdk_version'] = '~> 1.0'
+default['algosec']['ruby_sdk_version'] = '~> 1.1'
